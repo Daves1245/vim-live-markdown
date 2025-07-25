@@ -1,0 +1,9 @@
+# Vim files
+*.swp
+*.swo
+*.swn
+
+# Node
+node_modules/
+dist/
+public/
