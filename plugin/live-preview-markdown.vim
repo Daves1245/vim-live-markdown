@@ -9,7 +9,7 @@ function! LivePreviewMarkdown()
 	let filepath = expand('%:p')
 	let script_file = expand('<sfile>:p')
 	let script_dir = fnamemodify(resolve(script_file), ':h')
-	let server_path = resolve(script_dir . '/dist/server.js')
+	let server_path = resolve(script_dir . '/../dist/server.js')
 
 	if !filereadable(server_path)
 		echomsg "server not found at: " . server_path
@@ -32,8 +32,6 @@ function! LivePreviewMarkdown()
 	endif
 	let b:live_preview_pid_file = pid_file
 	echomsg "log file: " . pid_file
-	" open browser window
-	call system("xdg-open http://127.0.0.1:58293")
 endfunction
 
 function! StopLivePreview()
@@ -55,4 +53,5 @@ augroup LiveMarkdown
 	endif
 	autocmd FileType markdown nnoremap <buffer> <LocalLeader>p :call LivePreviewMarkdown()<CR>
 	autocmd BufDelete,BufWipeout *.md call StopLivePreview()
+	autocmd VimLeave * call StopLivePreview()
 augroup END

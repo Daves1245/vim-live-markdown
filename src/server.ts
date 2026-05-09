@@ -120,7 +120,8 @@ const start = async () => {
         console.log(`watching file: ${filepath}`);
 
         // open browser window
-        exec(`xdg-open "${url}"`, (error) => {
+        const openCmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+        exec(`${openCmd} "${url}"`, (error) => {
             if (error) {
                 console.log('could not open browser automatically. please visit:', url);
             }
